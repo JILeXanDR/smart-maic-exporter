@@ -1,6 +1,13 @@
+- docker image
+
+```
+jilexandr/smart-maic-exporter:latest
+```
+
 - prometheus.yml
+
 ```yaml
-scrape_configs:    
+scrape_configs:
   - job_name: "smart_maic"
     scrape_interval: 6s
     static_configs:
@@ -9,8 +16,8 @@ scrape_configs:
           devid: "1828727481"
 ```
 
-
 - grafana dashboard
+
 ```json
 {
   "annotations": {
