@@ -73,7 +73,7 @@ def fetch_and_update_metrics():
 
 
 @app.route("/metrics")
-@cache.cached(timeout=CACHE_TIMEOUT)
+# @cache.cached(timeout=CACHE_TIMEOUT)
 def metrics_endpoint():
     fetch_and_update_metrics()
     return Response(generate_latest(registry), mimetype="text/plain")
