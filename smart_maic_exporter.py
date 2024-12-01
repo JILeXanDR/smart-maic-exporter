@@ -66,15 +66,15 @@ def fetch_and_update_metrics():
 
         # Update Prometheus Metrics for each line
         for line in ["1", "2", "3"]:
-            metrics["voltage"].labels(line=line).set(float(device_data[f"V{line}"]["value"]))
-            metrics["current"].labels(line=line).set(float(device_data[f"A{line}"]["value"]))
-            metrics["power_factor"].labels(line=line).set(float(device_data[f"PF{line}"]["value"]))
-            metrics["frequency"].labels(line=line).set(float(device_data[f"Fr{line}"]["value"]))
-            metrics["energy"].labels(line=line).inc(float(device_data[f"Wh{line}"]["value"]))
+            metrics["voltage"].labels(line=line).set(float(device_data[f"V{line}"]["value"]))  # Last voltage
+            metrics["current"].labels(line=line).set(float(device_data[f"A{line}"]["value"]))  # Last current
+            metrics["power_factor"].labels(line=line).set(float(device_data[f"PF{line}"]["value"]))  # Last power factor
+            metrics["frequency"].labels(line=line).set(float(device_data[f"Fr{line}"]["value"]))  # Last frequency
+            metrics["energy"].labels(line=line).set(float(device_data[f"Wh{line}"]["value"]))  # Total energy
 
-        # Update total metrics
-        metrics["temperature"].set(float(device_data["T"]["value"]))
-        metrics["total_energy"].inc(float(device_data["TWh"]["value"]))
+        # Update general metrics
+        metrics["temperature"].set(float(device_data["T"]["value"]))  # Last temperature
+        metrics["total_energy"].set(float(device_data["TWh"]["value"]))  # Total energy
 
         logging.info("Successfully updated metrics.")
 
