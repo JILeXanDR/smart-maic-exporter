@@ -1,0 +1,17 @@
+FROM golang:1.23.3-alpine AS builder
+
+WORKDIR /src
+
+COPY . .
+
+RUN go mod download
+
+RUN CGO_ENABLED=0 go build -o smart_maic_exporter_go .
+
+FROM alpine:3.14
+
+COPY --from=builder /src/smart_maic_exporter_go ./
+
+RUN apk add chromium
+
+CMD ["./smart_maic_exporter_go"]

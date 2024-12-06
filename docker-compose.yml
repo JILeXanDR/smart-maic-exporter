@@ -1,8 +1,17 @@
-version: "3.8"
 services:
   smart-maic-exporter:
     build: .
     ports:
       - "8000:8000"
     environment:
-      DATA_SOURCE_URL: "http://192.168.10.55/?page=getdata&devid=xxx&devpass=xxx"
+      DATA_SOURCE_URL: "http://192.168.10.55/?page=getdata&devid=xxx&devpass=0000"
+
+  smart-maic-exporter-go:
+    build:
+      dockerfile: Dockerfile-go
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      BASE_URL: "http://192.168.10.55"
+      PIN_CODE: "0000"
