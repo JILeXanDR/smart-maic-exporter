@@ -90,6 +90,19 @@ def fetch_and_update_metrics():
         logging.info("Successfully updated metrics.")
     except requests.exceptions.RequestException as e:
         logging.error(f"Failed to fetch data: {e}")
+
+        for line in ["1", "2", "3"]:
+            metrics["voltage"].labels(line=line).set(0)
+            metrics["current"].labels(line=line).set(0)
+            metrics["power"].labels(line=line).set(0)
+            metrics["energy"].labels(line=line).set(0)
+            metrics["power_factor"].labels(line=line).set(0)
+            metrics["frequency"].labels(line=line).set(0)
+
+        metrics["total_current"].set(0)
+        metrics["total_power"].set(0)
+        metrics["temperature"].set(0)
+
         # Set request status to Offline
         metrics["device_api_status"].set(0)
 
